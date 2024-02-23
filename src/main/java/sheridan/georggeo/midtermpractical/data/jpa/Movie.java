@@ -3,6 +3,9 @@ package sheridan.georggeo.midtermpractical.data.jpa;
 import com.fasterxml.jackson.annotation.JsonGetter;
 import jakarta.persistence.*;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @Entity
 public class Movie {
 
@@ -15,12 +18,8 @@ public class Movie {
     @Column(name = "movie_kind")
     private String movieKind = "";
 
-    private Integer genre;
-
-    private String image = null;
-
-    @ManyToOne
-    @JoinColumn(name = "actor_id", nullable = false)
+    private Integer rel_year;
+    @ManyToMany(mappedBy = "movies")
     private Actor actor = null;
 
     @JsonGetter
@@ -28,11 +27,10 @@ public class Movie {
         return actor.getId();
     }
 
-    public Movie(String name, String movieKind, Integer genre, String image) {
+    public Movie(String name, String movieKind, Integer rel_year) {
         this.name = name;
         this.movieKind = movieKind;
-        this.genre = genre;
-        this.image = image;
+        this.rel_year = rel_year;
     }
 
     public Movie() {
@@ -62,23 +60,15 @@ public class Movie {
         this.movieKind = movieKind;
     }
 
-    public Integer getAge() {
-        return genre;
+    public Integer getYear() {
+        return rel_year;
     }
 
-    public void setAge(Integer genre) {
-        this.genre = genre;
+    public void setYear(Integer rel_year) {
+        this.rel_year = rel_year;
     }
 
-    public String getImage() {
-        return image;
-    }
-
-    public void setImage(String image) {
-        this.image = image;
-    }
-
-    public Actor getOwner() {
+    public Actor getActor() {
         return actor;
     }
 

@@ -1,4 +1,6 @@
 package sheridan.georggeo.midtermpractical.data.jpa;
 
-public interface MovieRepository {
+import org.springframework.data.jpa.repository.JpaRepository;
+
+public interface MovieRepository extends JpaRepository<Movie, Long> {
 }

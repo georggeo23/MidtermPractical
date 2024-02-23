@@ -20,8 +20,13 @@ public class Actor {
     @Column(name = "last_name")
     private String lastName = "";
 
-    @ManyToMany(mappedBy = "owner", cascade = CascadeType.PERSIST)
-    private List<Movie> arts = new ArrayList<>();
+    @ManyToMany
+            @JoinTable(
+                    name = "movie_actor",
+                    joinColumns = @JoinColumn(name = "actor_id"),
+                    inverseJoinColumns = @JoinColumn(name = "movie_id"))
+
+    private List<Movie> movies = new ArrayList<>();
 
     public Actor() {
     }
@@ -58,20 +63,20 @@ public class Actor {
         this.lastName = lastName;
     }
 
-    public List<Movie> getArts() {
-        return arts;
+    public List<Movie> getMovies() {
+        return movies;
     }
 
-    public void setArts(List<Movie> arts) {
-        this.arts = arts;
+    public void setMovies(List<Movie> movies) {
+        this.movies = movies;
     }
     @JsonGetter
-    Integer getArtCount(){
-        return arts.size();
+    Integer getMovieCount(){
+        return movies.size();
     }
 
-    public void addArt(Movie art){
-        art.setOwner(this);
-        arts.add(art);
+    public void addMovie(Movie movie){
+        movie.setOwner(this);
+        movies.add(movie);
     }
 }
